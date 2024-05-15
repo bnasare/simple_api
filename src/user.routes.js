@@ -6,18 +6,43 @@ import userService from './services/user.service.js';
 const router = express.Router();
 
 const STATUS = {
-    success: 'OK',
+    success: 'YES',
     failure: 'NO',
 }
 
 router.use(express.json());
 
-router.get('/ping', (req, res) => {
-    res.status(StatusCodes.OK).send('OK!');
+router.get('/all', (req, res) => {
+    const users = userService.getAllUsers();
+
+    if (users.length) {
+        return res.status(StatusCodes.OK).send({
+            status: STATUS.success,
+            data: users
+        })
+    }
+
+    return res.status(StatusCodes.NOT_FOUND).send({
+        status: STATUS.failure,
+        message: 'No users found'
+    })
 })
 
-router.get('/users', (req, res) => {
-    const users = userService.getAllUsers();
+router.get('/get/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const user = userService.getUser(id);
+
+    if (user) {
+        return res.status(StatusCodes.OK).send({
+            status: STATUS.success,
+            user
+        })
+    }
+
+    return res.status(StatusCodes.NOT_FOUND).send({
+        status: STATUS.failure,
+        message: 'No user found'
+    })
 })
 
 router.post('/add', (req, res) => {

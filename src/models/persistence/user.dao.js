@@ -7,7 +7,7 @@ import users from '../data/users.data';
  * @returns {Object|null} - Returns the user object if found, otherwise returns null.
  */
 const get = (userID) => {
-    const findAUser = (user) => {
+    const getAUser = users.find((user) => {
         // Check if the current user's ID matches the requested userID
         if (user.id === userID) {
             // Return the matching user object
@@ -15,9 +15,10 @@ const get = (userID) => {
         }
         // Return null if no match is found
         return null;
-    }
+    })
+
     // Use Array.prototype.find() to locate the user within the users array
-    return users.find(findAUser);
+    return getAUser;
 }
 
 /**
