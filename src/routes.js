@@ -12,27 +12,39 @@ const STATUS = {
 
 router.use(express.json());
 
-router.get('/', (req, res) => {
-    res.status(StatusCodes.OK).send('Hello World!');
+router.get('/ping', (req, res) => {
+    res.status(StatusCodes.OK).send('OK!');
 })
 
 
 router.post('/add', (req, res) => {
-    const data = [];
-    const {body:users} = req;
+    const {body:user} = req;
 
-    userService.addUser(details);
-    if (!users.name) {
-        return res.status(StatusCodes.BAD_REQUEST).send({
-            status: STATUS.failure,
-            message: 'Name is required'
-        });
-    }
+    const addedUser = userService.addUser(user);
 
     return res.status(StatusCodes.CREATED).send({
         status: STATUS.success,
-        message:data
+        message: addedUser
     });
+})
+
+router.put('/update/:id', (req, res) => {
+    const {body:user} = req;
+
+    const id = parseInt(req.params.id);
+
+    const updatedUser = userService.updateUser(id, user);
+
+    if (!updatedUser) {
+        return res.status(StatusCodes.NOT_FOUND).send({
+            status: STATUS.failure,
+            message: `User with ID ${id} not found`
+        })
+    }
+    return res.status(StatusCodes.OK).send({
+        status: STATUS.success,
+        message: updatedUser
+    })
 })
 
 export default router
