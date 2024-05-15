@@ -16,6 +16,9 @@ router.get('/ping', (req, res) => {
     res.status(StatusCodes.OK).send('OK!');
 })
 
+router.get('/users', (req, res) => {
+    const users = userService.getAllUsers();
+})
 
 router.post('/add', (req, res) => {
     const {body:user} = req;
