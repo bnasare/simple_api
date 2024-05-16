@@ -13,11 +13,11 @@ const updateUser = (userID, details) => {
 }
 
 const addUser = (details) => {
-    userDao.insert(details);
+    return  userDao.insert(details);
 }
 
 const removeUser = (userID) => {
-    return userDao.delete(userID);
+    return userDao.remove(userID);
 }
 
 export default {getUser, getAllUsers, updateUser, addUser, removeUser}

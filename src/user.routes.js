@@ -18,7 +18,7 @@ router.get('/all', (req, res) => {
     if (users.length) {
         return res.status(StatusCodes.OK).send({
             status: STATUS.success,
-            data: users
+            users: users
         })
     }
 
@@ -28,14 +28,14 @@ router.get('/all', (req, res) => {
     })
 })
 
-router.get('/get/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const user = userService.getUser(id);
 
     if (user) {
         return res.status(StatusCodes.OK).send({
             status: STATUS.success,
-            user
+            user: user
         })
     }
 
@@ -52,7 +52,7 @@ router.post('/add', (req, res) => {
 
     return res.status(StatusCodes.CREATED).send({
         status: STATUS.success,
-        message: addedUser
+        user: addedUser
     });
 })
 
@@ -71,8 +71,31 @@ router.put('/update/:id', (req, res) => {
     }
     return res.status(StatusCodes.OK).send({
         status: STATUS.success,
-        message: updatedUser
+        user: updatedUser
     })
+})
+
+router.delete('/:id', (req, res) => {
+    const {id} = req.params;
+
+    const deletedUserId = parseInt(id);
+
+    const isDeletedSuccessfully = userService.removeUser(deletedUserId)
+
+    let response;
+    if (isDeletedSuccessfully === true) {
+        response={
+            status:STATUS.success,
+            message:`User ${deletedUserId} has been deleted`
+        }
+    } else {
+        response={
+            status:STATUS.failure,
+            message:`Error deleting User ${deletedUserId}`
+        }
+    }
+
+    return res.status(isDeletedSuccessfully? StatusCodes.OK: StatusCodes.BAD_REQUEST).send(response);
 })
 
 export default router
