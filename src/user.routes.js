@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { expressYupMiddleware } from 'express-yup-middleware';
 
 import userService from './services/user.service.js';
-import {addUser} from './user.schemas.js';
+import {addUser, updateUser} from './user.schemas.js';
 
 const router = express.Router();
 
@@ -58,7 +58,7 @@ router.post('/', expressYupMiddleware({schemaValidator: addUser, expectedStatusC
     });
 })
 
-router.put('/update/:id', (req, res) => {
+router.put('/update/:id', expressYupMiddleware({schemaValidator: updateUser, expectedStatusCode: StatusCodes.OK}), (req, res) => {
     const {body:user} = req;
 
     const id = parseInt(req.params.id);
