@@ -15,40 +15,11 @@ const STATUS = {
 
 router.use(express.json());
 
-router.get('/all', (req, res) => {
-    const users = userService.getAllUsers();
+router.get('/all', userController.getAllUsers);
 
-    if (users.length) {
-        return res.status(StatusCodes.OK).send({
-            status: STATUS.success,
-            users: users
-        })
-    }
+router.get('/:id', userController.getUser);
 
-    return res.status(StatusCodes.NOT_FOUND).send({
-        status: STATUS.failure,
-        message: 'No users found'
-    })
-})
-
-router.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const user = userService.getUser(id);
-
-    if (user) {
-        return res.status(StatusCodes.OK).send({
-            status: STATUS.success,
-            user: user
-        })
-    }
-
-    return res.status(StatusCodes.NOT_FOUND).send({
-        status: STATUS.failure,
-        message: 'No user found'
-    })
-})
-
-router.post('/', expressYupMiddleware({schemaValidator: addUserSchema}),
+router.post('/add', expressYupMiddleware({schemaValidator: addUserSchema}),
     userController.addUser
 );
 

@@ -60,4 +60,37 @@ const deleteUser = (req, res) => {
     return res.status(isDeletedSuccessfully? StatusCodes.OK: StatusCodes.BAD_REQUEST).send(response);
 }
 
-export default {updateUser, addUser, deleteUser}
+const getUser = (req, res) => {
+    const id = parseInt(req.params.id);
+    const user = userService.getUser(id);
+
+    if (user) {
+        return res.status(StatusCodes.OK).send({
+            status: STATUS.success,
+            user: user
+        })
+    }
+
+    return res.status(StatusCodes.NOT_FOUND).send({
+        status: STATUS.failure,
+        message: 'No user found'
+    })
+}
+
+const getAllUsers = (req, res) => {
+    const users = userService.getAllUsers();
+
+    if (users.length) {
+        return res.status(StatusCodes.OK).send({
+            status: STATUS.success,
+            users: users
+        })
+    }
+
+    return res.status(StatusCodes.NOT_FOUND).send({
+        status: STATUS.failure,
+        message: 'No users found'
+    })
+}
+
+export default {updateUser, addUser, deleteUser, getUser, getAllUsers}

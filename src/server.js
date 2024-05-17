@@ -9,7 +9,7 @@ const port = 3000
 app.use(express.json());
 
 app.use('/', mainRoutes);
-app.use('/v1/user', userRoutes);
+app.use('/v1/users', userRoutes);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`)
