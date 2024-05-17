@@ -25,3 +25,13 @@ export const updateUserSchema = {
         },
     },
 }
+
+export const getUserSchema = {
+    schema: {
+        params: {
+            yupSchema: yup.object().shape({
+                id: yup.number().required(),
+            })
+        },
+    },
+}
