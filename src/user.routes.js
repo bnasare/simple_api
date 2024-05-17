@@ -56,27 +56,6 @@ router.put('/update/:id', expressYupMiddleware({schemaValidator: updateUserSchem
     userController.updateUser
 );
 
-router.delete('/:id', (req, res) => {
-    const {id} = req.params;
-
-    const deletedUserId = parseInt(id);
-
-    const isDeletedSuccessfully = userService.removeUser(deletedUserId)
-
-    let response;
-    if (isDeletedSuccessfully === true) {
-        response={
-            status:STATUS.success,
-            message:`User ${deletedUserId} has been deleted`
-        }
-    } else {
-        response={
-            status:STATUS.failure,
-            message:`Error deleting User ${deletedUserId}`
-        }
-    }
-
-    return res.status(isDeletedSuccessfully? StatusCodes.OK: StatusCodes.BAD_REQUEST).send(response);
-})
+router.delete('/:id', userController.deleteUser);
 
 export default router
