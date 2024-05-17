@@ -1,6 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import compression from 'compression';
 
 import mainRoutes from './main.routes.js';
 import userRoutes from './user.routes.js';
@@ -13,6 +14,7 @@ const limiter = rateLimit({
 	limit: 100, // Limit each IP to 100 requests per `window` (here, per 1 minute).
 })
 
+app.use(compression());
 app.use(limiter);
 app.use(express.json());
 app.use(helmet());
