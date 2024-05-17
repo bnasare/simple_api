@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const addUserSchema = {
+export const addUser = {
     schema: {
         body: {
             yupSchema: yup.object().shape({
@@ -13,7 +13,7 @@ export const addUserSchema = {
     },
 }
 
-export const updateUserSchema = {
+export const updateUser = {
     schema: {
         body: {
             yupSchema: yup.object().shape({
@@ -26,7 +26,7 @@ export const updateUserSchema = {
     },
 }
 
-export const getUserSchema = {
+export const getUser = {
     schema: {
         params: {
             yupSchema: yup.object().shape({
@@ -35,3 +35,14 @@ export const getUserSchema = {
         },
     },
 }
+
+export const deleteUser = {
+    schema: {
+        params: {
+            yupSchema: yup.object().shape({
+                id: yup.number().required(),
+            })
+        },
+    },
+}
+
