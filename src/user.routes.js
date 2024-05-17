@@ -1,7 +1,7 @@
 import express from 'express';
 import { expressYupMiddleware } from 'express-yup-middleware';
 
-import {addUser, updateUser, getUser, deleteUser} from './user.schemas.js';
+import {addUser, updateUser, getUser, removeUser} from './user.schemas.js';
 import userController from './controllers/user.controller.js';
 
 const router = express.Router();
@@ -22,7 +22,7 @@ router.put('/update/:id', expressYupMiddleware({schemaValidator: updateUser}),
     userController.updateUser
 );
 
-router.delete('/:id', expressYupMiddleware({schemaValidator: deleteUser}),
+router.delete('/:id', expressYupMiddleware({schemaValidator: removeUser}),
     userController.deleteUser
 );
 

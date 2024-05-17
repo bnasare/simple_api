@@ -36,7 +36,7 @@ export const getUser = {
     },
 }
 
-export const deleteUser = {
+export const removeUser = {
     schema: {
         params: {
             yupSchema: yup.object().shape({
