@@ -1,7 +1,9 @@
 import express from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { expressYupMiddleware } from 'express-yup-middleware';
 
 import userService from './services/user.service.js';
+import {addUser} from './user.schemas.js';
 
 const router = express.Router();
 
@@ -45,7 +47,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/add', (req, res) => {
+router.post('/', expressYupMiddleware({schemaValidator: addUser, expectedStatusCode: StatusCodes.OK}), (req, res) => {
     const {body:user} = req;
 
     const addedUser = userService.addUser(user);
