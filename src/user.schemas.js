@@ -1,19 +1,26 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 const MIN_LENGTH = {
     name: 3,
     email: 3,
     city: 3,
     country: 3
-}
+};
 
 const MAX_LENGTH = {
     name: 20,
     email: 50,
     city: 30,
     country: 15
-}
+};
 
+/**
+ * Validation schema for adding a new user.
+ *
+ * @property {object} schema - The schema object for request validation.
+ * @property {object} schema.body - The validation schema for the request body.
+ * @property {object} schema.body.yupSchema - The Yup validation schema for the body.
+ */
 export const addUser = {
     schema: {
         body: {
@@ -25,8 +32,17 @@ export const addUser = {
             })
         },
     },
-}
+};
 
+/**
+ * Validation schema for updating an existing user.
+ *
+ * @property {object} schema - The schema object for request validation.
+ * @property {object} schema.params - The validation schema for the request parameters.
+ * @property {object} schema.params.yupSchema - The Yup validation schema for the parameters.
+ * @property {object} schema.body - The validation schema for the request body.
+ * @property {object} schema.body.yupSchema - The Yup validation schema for the body.
+ */
 export const updateUser = {
     schema: {
         params: {
@@ -43,8 +59,15 @@ export const updateUser = {
             })
         },
     },
-}
+};
 
+/**
+ * Validation schema for retrieving a user by their ID.
+ *
+ * @property {object} schema - The schema object for request validation.
+ * @property {object} schema.params - The validation schema for the request parameters.
+ * @property {object} schema.params.yupSchema - The Yup validation schema for the parameters.
+ */
 export const getUser = {
     schema: {
         params: {
@@ -53,8 +76,15 @@ export const getUser = {
             })
         },
     },
-}
+};
 
+/**
+ * Validation schema for removing a user by their ID.
+ *
+ * @property {object} schema - The schema object for request validation.
+ * @property {object} schema.params - The validation schema for the request parameters.
+ * @property {object} schema.params.yupSchema - The Yup validation schema for the parameters.
+ */
 export const removeUser = {
     schema: {
         params: {
@@ -63,5 +93,4 @@ export const removeUser = {
             })
         },
     },
-}
-
+};
